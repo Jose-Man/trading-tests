@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Trades</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:8080/api/trades"
+            }).then(function(trades) {
+               if (trades != undefined) {
+                   trades.forEach(function (trade, index) {
+                       $('#trades > tbody:last-child')
+                                .append('<tr>'
+                                        + '<td>' + (index + 1) + '</td>'
+                                        + '<td>' + trade.id + '</td>'
+                                        + '<td>' + trade.orderSellId + '</td>'
+                                        + '<td>' + trade.orderBuyId + '</td>'
+                                        + '<td>' + trade.price + '</td>'
+                                        + '<td>' + trade.quantity + '</td>'
+                                        + '</tr>');
+                   });
+               }
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="container my-5">
+    <h2>Trades</h2>
+    <table id="trades" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Trade No.</th>
+            <th>ID</th>
+            <th>Order Sell ID</th>
+            <th>Order Buy ID</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+</body>
+</html>
